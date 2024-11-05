@@ -4,8 +4,17 @@
 import * as Location from 'expo-location';
 import { router } from 'expo-router';
 import React, { useEffect } from 'react';
-import { StyleSheet, View } from 'react-native';
+import {
+  ActivityIndicator,
+  FlatList,
+  Image,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 
+import { useGetProductsQuery } from '@/core/products-api';
 import useNetwork from '@/hooks/use-network';
 import { useAppDispatch } from '@/redux/hooks';
 import { setLocation } from '@/redux/slices/cart-slice';
@@ -13,6 +22,13 @@ import { Button } from '@/ui';
 
 const HomeScreen = () => {
   const isConnected = useNetwork();
+  const {
+    data: products,
+    error,
+    isLoading,
+  } = useGetProductsQuery(undefined, {
+    skip: !isConnected,
+  });
   const dispatch = useAppDispatch();
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
@@ -35,6 +51,19 @@ const HomeScreen = () => {
     })();
   }, []);
 
+  if (!isConnected) {
+    return (
+      <View style={{ flex: 1 }}>
+        <Text>You are offline. Showing cached products.</Text>
+        {/* Optionally display cached products if available */}
+      </View>
+    );
+  }
+  if (isLoading)
+    return <ActivityIndicator size="large" style={styles.loader} />;
+
+  if (error) return <Text>Error fetching products</Text>;
+
   return (
     <View style={styles.container}>
       <Button
@@ -42,6 +71,27 @@ const HomeScreen = () => {
         onPress={() => {
           router.push('/map');
         }}
+      />
+      <FlatList
+        data={products}
+        keyExtractor={(item) => item.id.toString()}
+        renderItem={({ item }) => (
+          <TouchableOpacity
+            style={styles.productItem}
+            onPress={() => {
+              router.push({
+                pathname: '/product-details',
+                params: { id: item.id },
+              });
+            }}
+          >
+            <Image source={{ uri: item.image }} style={styles.productImage} />
+            <View style={styles.productInfo}>
+              <Text style={styles.title}>{item.title}</Text>
+              <Text style={styles.price}>${item.price}</Text>
+            </View>
+          </TouchableOpacity>
+        )}
       />
     </View>
   );
