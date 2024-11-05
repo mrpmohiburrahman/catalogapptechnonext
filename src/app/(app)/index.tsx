@@ -3,7 +3,7 @@
 // src/screens/HomeScreen.tsx
 import * as Location from 'expo-location';
 import { router } from 'expo-router';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   ActivityIndicator,
   FlatList,
@@ -30,6 +30,7 @@ const HomeScreen = () => {
     skip: !isConnected,
   });
   const dispatch = useAppDispatch();
+  const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
@@ -51,6 +52,13 @@ const HomeScreen = () => {
     })();
   }, []);
 
+  const sortedProducts = products
+    ? [...products]
+        .sort((a, b) =>
+          sortOrder === 'asc' ? a.price - b.price : b.price - a.price,
+        )
+        .slice(0, 10)
+    : [];
   if (!isConnected) {
     return (
       <View style={{ flex: 1 }}>
@@ -72,8 +80,17 @@ const HomeScreen = () => {
           router.push('/map');
         }}
       />
+      <View style={styles.sortContainer}>
+        <Text>Sort by Price:</Text>
+        <TouchableOpacity
+          onPress={() => setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc')}
+        >
+          <Text>{sortOrder === 'asc' ? 'Ascending' : 'Descending'}</Text>
+        </TouchableOpacity>
+      </View>
+      {/*  */}
       <FlatList
-        data={products}
+        data={sortedProducts}
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
           <TouchableOpacity
