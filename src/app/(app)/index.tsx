@@ -80,6 +80,12 @@ const HomeScreen = () => {
           router.push('/map');
         }}
       />
+      <Button
+        label="go to cart"
+        onPress={() => {
+          router.push('/cart');
+        }}
+      />
       <View style={styles.sortContainer}>
         <Text>Sort by Price:</Text>
         <TouchableOpacity
