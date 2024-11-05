@@ -29,10 +29,7 @@ export default function RootLayout() {
 
 function Providers({ children }: { children: React.ReactNode }) {
   return (
-    <GestureHandlerRootView
-      style={styles.container}
-      className={theme.dark ? `dark` : undefined}
-    >
+    <GestureHandlerRootView style={styles.container}>
       <KeyboardProvider>
         <BottomSheetModalProvider>
           {children}
