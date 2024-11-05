@@ -5,10 +5,12 @@ import * as Location from 'expo-location';
 import React, { useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
 
+import useNetwork from '@/hooks/use-network';
 import { useAppDispatch } from '@/redux/hooks';
-import { setLocation } from '@/redux/slices/cart-slice';
 
 const HomeScreen = () => {
+  const isConnected = useNetwork();
+  console.log('🚀 ~ HomeScreen ~ isConnected:', isConnected);
   const dispatch = useAppDispatch();
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
