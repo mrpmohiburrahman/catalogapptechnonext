@@ -2,15 +2,17 @@
 /* eslint-disable max-lines-per-function */
 // src/screens/HomeScreen.tsx
 import * as Location from 'expo-location';
+import { router } from 'expo-router';
 import React, { useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
 
 import useNetwork from '@/hooks/use-network';
 import { useAppDispatch } from '@/redux/hooks';
+import { setLocation } from '@/redux/slices/cart-slice';
+import { Button } from '@/ui';
 
 const HomeScreen = () => {
   const isConnected = useNetwork();
-  console.log('🚀 ~ HomeScreen ~ isConnected:', isConnected);
   const dispatch = useAppDispatch();
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
@@ -33,7 +35,16 @@ const HomeScreen = () => {
     })();
   }, []);
 
-  return <View style={styles.container}></View>;
+  return (
+    <View style={styles.container}>
+      <Button
+        label="user location"
+        onPress={() => {
+          router.push('/map');
+        }}
+      />
+    </View>
+  );
 };
 
 export default HomeScreen;
