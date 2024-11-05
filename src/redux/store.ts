@@ -5,6 +5,7 @@ import { persistReducer, persistStore } from 'redux-persist';
 
 import { productsApi } from '@/core/products-api';
 import cartReducer from '@/redux/slices/cart-slice';
+import timestampReducer from '@/redux/slices/timestamp-slice';
 import mmkvStorage from '@/redux/storage';
 // Remove the default AsyncStorage import
 // import storage from 'redux-persist/es/storage';
@@ -13,6 +14,7 @@ import mmkvStorage from '@/redux/storage';
 const rootReducer = combineReducers({
   [productsApi.reducerPath]: productsApi.reducer,
   cart: cartReducer,
+  timestamp: timestampReducer,
 });
 
 // Configure persist to use MMKV storage
