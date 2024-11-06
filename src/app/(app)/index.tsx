@@ -2,7 +2,7 @@
 /* eslint-disable max-lines-per-function */
 // src/screens/HomeScreen.tsx
 import * as Location from 'expo-location';
-import { router } from 'expo-router';
+import { router, Stack } from 'expo-router';
 import React, { useEffect, useState } from 'react';
 import {
   ActivityIndicator,
@@ -75,34 +75,8 @@ const HomeScreen = () => {
 
   return (
     <View style={styles.container}>
-      <Button
-        label="user location"
-        onPress={() => {
-          router.push('/map');
-        }}
-      />
-      <Button
-        label="go to cart"
-        onPress={() => {
-          router.push('/cart');
-        }}
-      />
-      <Button
-        label="history"
-        onPress={() => {
-          router.push('/history');
-        }}
-      />
-      <Timestamp />
-      <View style={styles.sortContainer}>
-        <Text>Sort by Price:</Text>
-        <TouchableOpacity
-          onPress={() => setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc')}
-        >
-          <Text>{sortOrder === 'asc' ? 'Ascending' : 'Descending'}</Text>
-        </TouchableOpacity>
-      </View>
-      {/*  */}
+      <Stack.Screen options={{ headerTitle: 'Home' }} />
+
       <FlatList
         data={sortedProducts}
         keyExtractor={(item) => item.id.toString()}
@@ -122,6 +96,39 @@ const HomeScreen = () => {
               <Text style={styles.price}>${item.price}</Text>
             </View>
           </TouchableOpacity>
+        )}
+        ListHeaderComponent={() => (
+          <>
+            <Button
+              label="user location"
+              onPress={() => {
+                router.push('/map');
+              }}
+            />
+            <Button
+              label="go to cart"
+              onPress={() => {
+                router.push('/cart');
+              }}
+            />
+            <Button
+              label="history"
+              onPress={() => {
+                router.push('/history');
+              }}
+            />
+            <Timestamp />
+            <View style={styles.sortContainer}>
+              <Text>Sort by Price:</Text>
+              <TouchableOpacity
+                onPress={() =>
+                  setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc')
+                }
+              >
+                <Text>{sortOrder === 'asc' ? 'Ascending' : 'Descending'}</Text>
+              </TouchableOpacity>
+            </View>
+          </>
         )}
       />
     </View>
