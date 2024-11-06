@@ -14,6 +14,7 @@ import {
   View,
 } from 'react-native';
 
+import Timestamp from '@/components/time-stamp';
 import { useGetProductsQuery } from '@/core/products-api';
 import useNetwork from '@/hooks/use-network';
 import { useAppDispatch } from '@/redux/hooks';
@@ -92,6 +93,7 @@ const HomeScreen = () => {
           router.push('/history');
         }}
       />
+      <Timestamp />
       <View style={styles.sortContainer}>
         <Text>Sort by Price:</Text>
         <TouchableOpacity
