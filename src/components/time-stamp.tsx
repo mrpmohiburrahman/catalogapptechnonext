@@ -3,6 +3,11 @@ import { format } from 'date-fns';
 import React, { useEffect } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
+import {
+  startListening,
+  stopListening,
+  type TimestampEvent,
+} from '@/native/timestamp-module';
 import { setTimestamp } from '@/redux/slices/timestamp-slice';
 
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
@@ -11,20 +16,28 @@ const Timestamp = () => {
   const dispatch = useAppDispatch();
   const timestamp = useAppSelector((state) => state.timestamp.currentTimestamp);
 
-  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
-    const interval = setInterval(() => {
-      const now = new Date();
-      const formatted = format(now, 'PPpp');
+    const handleTimestampEvent = (event: TimestampEvent) => {
+      console.log('Received timestamp event:', event.timestamp);
+      const date = new Date(event.timestamp);
+      const formatted = format(date, 'PPpp');
       dispatch(setTimestamp(formatted));
-    }, 20000); // every 20 seconds
+    };
 
-    return () => clearInterval(interval);
-  }, []);
+    // Start listening to native events
+    startListening(handleTimestampEvent);
+    console.log('Started listening to TimestampEvent.');
+
+    // Cleanup on unmount
+    return () => {
+      stopListening();
+      console.log('Stopped listening to TimestampEvent.');
+    };
+  }, [dispatch]);
 
   return (
     <View style={styles.container}>
-      <Text>{timestamp}</Text>
+      <Text style={styles.text}>{timestamp}</Text>
     </View>
   );
 };
@@ -39,5 +52,9 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0,0,0,0.5)',
     padding: 5,
     borderRadius: 5,
+  },
+  text: {
+    color: '#fff',
+    fontSize: 14,
   },
 });
