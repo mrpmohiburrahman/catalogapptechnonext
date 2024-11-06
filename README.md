@@ -1,49 +1,36 @@
-<h1 align="center">
-  <img alt="logo" src="./assets/icon.png" width="124px" style="border-radius:10px"/><br/>
-Mobile App </h1>
+# Fake Store Catalog App
 
-> This Project is based on [Obytes starter](https://starter.obytes.com)
+## Overview
 
-## Requirements
+A React Native catalog app built with Expo, using the Fake Store API. Features include product listing, sorting, cart management, offline support, and a timestamp display.
 
-- [React Native dev environment ](https://reactnative.dev/docs/environment-setup)
-- [Node.js LTS release](https://nodejs.org/en/)
-- [Git](https://git-scm.com/)
-- [Watchman](https://facebook.github.io/watchman/docs/install#buildinstall), required only for macOS or Linux users
-- [Pnpm](https://pnpm.io/installation)
-- [VS Code Editor](https://code.visualstudio.com/download) ⚠️ Make sure to install all recommended extension from `.vscode/extensions.json`
+## Features
 
-## 👋 Quick start
+- Display products with sorting options
+- Product details view
+- Add to cart with quantity management
+- View cart contents
+- Display user location on a map
+- Offline support with cached products and history
+- Display current timestamp updated every 20 seconds
 
-Clone the repo to your machine and install deps :
+## Technologies Used
 
-```sh
-git clone https://github.com/user/repo-name
+- **React Native** with **Expo**
+- **TypeScript**
+- **Redux Toolkit** & **RTK Query**
+- **Expo Router**
+- **React Native Maps**
+- **Expo Location**
+- **Async Storage**
+- **NetInfo**
+- **date-fns**
 
-cd ./repo-name
+## Installation
 
-pnpm install
-```
+1. **Clone the Repository:**
 
-To run the app on ios
-
-```sh
-pnpm ios
-```
-
-To run the app on Android
-
-```sh
-pnpm android
-```
-
-## ✍️ Documentation
-
-- [Rules and Conventions](https://starter.obytes.com/getting-started/rules-and-conventions/)
-- [Project structure](https://starter.obytes.com/getting-started/project-structure)
-- [Environment vars and config](https://starter.obytes.com/getting-started/environment-vars-config)
-- [UI and Theming](https://starter.obytes.com/ui-and-theme/ui-theming)
-- [Components](https://starter.obytes.com/ui-and-theme/components)
-- [Forms](https://starter.obytes.com/ui-and-theme/Forms)
-- [Data fetching](https://starter.obytes.com/guides/data-fetching)
-- [Contribute to starter](https://starter.obytes.com/how-to-contribute/)
+   ```bash
+   git clone https://github.com/yourusername/fake-store-app.git
+   cd fake-store-app
+   ```
