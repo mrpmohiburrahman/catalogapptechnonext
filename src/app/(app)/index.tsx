@@ -67,14 +67,6 @@ const HomeScreen = () => {
         )
         .slice(0, 10)
     : [];
-  if (!isConnected) {
-    return (
-      <View style={{ flex: 1 }}>
-        <Text>You are offline. Showing cached products.</Text>
-        {/* Optionally display cached products if available */}
-      </View>
-    );
-  }
   if (isLoading)
     return <ActivityIndicator size="large" style={styles.loader} />;
 
