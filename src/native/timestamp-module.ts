@@ -1,4 +1,3 @@
-// src/native/TimestampModule.ts
 import {
   type EmitterSubscription,
   NativeEventEmitter,
@@ -19,6 +18,7 @@ let subscription: EmitterSubscription | null = null;
 export const startListening = (callback: (event: TimestampEvent) => void) => {
   if (!subscription) {
     subscription = timestampEmitter.addListener('TimestampEvent', callback);
+    console.log('Listener added to TimestampEvent.');
   }
 };
 
@@ -26,5 +26,6 @@ export const stopListening = () => {
   if (subscription) {
     subscription.remove();
     subscription = null;
+    console.log('Listener removed from TimestampEvent.');
   }
 };

@@ -1,4 +1,3 @@
-// src/components/Timestamp.tsx
 import { format } from 'date-fns';
 import React, { useEffect } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
