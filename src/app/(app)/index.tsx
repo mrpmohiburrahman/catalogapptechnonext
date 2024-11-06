@@ -27,9 +27,16 @@ const HomeScreen = () => {
     data: products,
     error,
     isLoading,
+    refetch,
   } = useGetProductsQuery(undefined, {
     skip: !isConnected,
   });
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
+  useEffect(() => {
+    if (isConnected) {
+      refetch(); // Assuming you have access to the refetch function from RTK Query
+    }
+  }, [isConnected]);
   const dispatch = useAppDispatch();
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
 
@@ -99,7 +106,9 @@ const HomeScreen = () => {
         )}
         ListHeaderComponent={() => (
           <>
+            <Timestamp />
             <Button
+              style={{ marginTop: 40 }}
               label="user location"
               onPress={() => {
                 router.push('/map');
@@ -117,7 +126,6 @@ const HomeScreen = () => {
                 router.push('/history');
               }}
             />
-            <Timestamp />
             <View style={styles.sortContainer}>
               <Text>Sort by Price:</Text>
               <TouchableOpacity
