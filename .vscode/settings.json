@@ -41,5 +41,8 @@
   ],
   "[objective-c]": {
     "editor.defaultFormatter": "xaver.clang-format"
+  },
+  "[java]": {
+    "editor.defaultFormatter": "redhat.java"
   }
 }
