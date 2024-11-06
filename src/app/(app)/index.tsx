@@ -86,6 +86,12 @@ const HomeScreen = () => {
           router.push('/cart');
         }}
       />
+      <Button
+        label="history"
+        onPress={() => {
+          router.push('/history');
+        }}
+      />
       <View style={styles.sortContainer}>
         <Text>Sort by Price:</Text>
         <TouchableOpacity
